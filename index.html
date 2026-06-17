@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Regresión Lineal por Mínimos Cuadrados v2</title>
+    <title>Calculadora de Mínimos Cuadrados v2</title>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
     <style>
         :root {
@@ -53,7 +53,6 @@
             opacity: 0.9;
         }
 
-        /* Layout en cascada/bloques grandes para máxima comodidad */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -87,7 +86,6 @@
             font-size: 1rem;
         }
 
-        /* Grid para la sección inferior (Gráfica + Guía de uso) */
         .visualization-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -96,11 +94,10 @@
 
         @media (min-width: 992px) {
             .visualization-layout {
-                grid-template-columns: 2fr 1fr; /* El gráfico toma el doble de espacio que la guía */
+                grid-template-columns: 2fr 1fr;
             }
         }
 
-        /* Tabla Estilizada de Datos */
         .table-responsive {
             max-height: 450px;
             overflow-y: auto;
@@ -164,7 +161,6 @@
             font-size: 1.1rem;
         }
 
-        /* Botonera Principal */
         .btn-group {
             display: flex;
             gap: 15px;
@@ -194,7 +190,6 @@
         .btn-clear { background-color: #e57373; color: var(--white); }
         .btn-clear:hover { background-color: #d32f2f; }
 
-        /* Cuadrícula de Resultados Estadísticos */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -224,7 +219,6 @@
             color: var(--primary-color);
         }
 
-        /* Caja de la Ecuación Final */
         .equation-box {
             grid-column: 1 / -1;
             background-color: var(--primary-color);
@@ -237,7 +231,6 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* Contenedor Agraciado y GIGANTE de GeoGebra */
         .ggb-wrapper {
             width: 100%;
             background-color: #ffffff;
@@ -249,12 +242,11 @@
 
         #ggb-element {
             width: 100%;
-            height: 600px; /* Incrementado para facilitar la usabilidad radicalmente */
+            height: 600px;
             border-radius: 4px;
             overflow: hidden;
         }
 
-        /* Panel de Guía Didáctica de Verificación */
         .guide-box {
             background-color: #fafafa;
             border: 1px solid var(--gray-medium);
@@ -299,8 +291,8 @@
 <body>
 
     <header>
-        <h1>Mínimos Cuadrados y Regresión Lineal (Versión 2.0)</h1>
-        <p>Aplicación Web Universitaria con Notación Corregida y Gráfico Interactivo Ampliado</p>
+        <h1>Mínimos Cuadrados y Regresión Lineal </h1>
+        <p>Aplicación Web Universitaria como resultado de actividad en clase.</p>
     </header>
 
     <div class="container">
@@ -400,7 +392,7 @@
         </div>
 
         <div class="card">
-            <h2>3. Visualización Geométrica Espacial</h2>
+            <h2>3. Visualización Geométrica Automática</h2>
             
             <div class="visualization-layout">
                 <div class="ggb-wrapper">
@@ -408,13 +400,12 @@
                 </div>
 
                 <div class="guide-box">
-                    <h3>💡 Guía de Uso y Verificación</h3>
-                    <p style="font-size:0.9rem; margin-bottom:12px; color:#666;">Siga estas indicaciones para validar los resultados sobre el lienzo:</p>
+                    <h3>💡 Funcionamiento del Gráfico</h3>
+                    <p style="font-size:0.9rem; margin-bottom:12px; color:#666;">El lienzo interactivo trabaja de forma autónoma:</p>
                     <ol>
-                        <li><strong>Verificar Puntos en la Vista Álgebraica:</strong> En la barra lateral izquierda del gráfico verá los puntos nombrados como <span class="badge">P_{1}</span>, <span class="badge">P_{2}</span>, etc. Compruebe que coinciden con sus datos ingresados.</li>
-                        <li><strong>Desplazamiento y Zoom:</strong> Si los puntos quedan fuera de la pantalla, use la combinación de teclas <kbd>Shift</kbd> + arrastrar el ratón sobre el plano para mover los ejes o use la rueda de desplazamiento para ajustar el zoom.</li>
-                        <li><strong>Comprobar la Ecuación f(x):</strong> GeoGebra mostrará de forma automática la función verde oscuro <span class="badge">f(x)</span>. Al hacerle doble clic en el panel lateral, podrá verificar y comparar sus coeficientes numéricos con la caja de texto del bloque 2.</li>
-                        <li><strong>Edición de Funciones Alternas:</strong> Puede escribir comandos directamente en la barra de entrada inferior de GeoGebra (ej. <code>g(x) = 2x + 1</code>) para realizar comparaciones visuales en tiempo real.</li>
+                        <li><strong>Generación 100% Automática:</strong> Al modificar la tabla de arriba y presionar el botón de calcular, los puntos (<span class="badge">P_1</span>, <span class="badge">P_2</span>...) y la recta verde <span class="badge">f(x)</span> aparecerán solos inmediatamente.</li>
+                        <li><strong>Auto-Encuadre Inteligente:</strong> El sistema calcula los márgenes idóneos para que nunca tengas que buscar tus puntos manualmente en el mapa cartesiano.</li>
+                        <li><strong>Interacción Libre:</strong> Aunque todo se dibuja solo, eres libre de usar la rueda del ratón para hacer zoom o arrastrar el plano presionando la tecla <kbd>Shift</kbd>.</li>
                     </ol>
                 </div>
             </div>
@@ -424,28 +415,28 @@
 
     <script>
         let ggbApplet;
-        // Parámetros mejorados: Habilitamos herramientas completas y barras de entrada
+        
         const ggbParameters = {
             "appName": "graphing",
             "width": 800,
             "height": 600,
-            "showToolBar": true,         // Permite usar herramientas de inspección
-            "showAlgebraInput": true,    // Muestra la lista de variables y puntos a la izquierda
-            "showMenuBar": true,         // Permite exportar imágenes o configuraciones si se requiere
+            "showToolBar": true,         
+            "showAlgebraInput": true,    
+            "showMenuBar": true,         
             "showResetIcon": true,
-            "enableShiftDragZoom": true, // Control total del plano cartesiano
+            "enableShiftDragZoom": true, 
             "useBrowserForJS": true,
             "language": "es"
         };
 
         window.addEventListener('load', function() {
             ggbApplet = new GGBApplet(ggbParameters, '5.0');
+            ggbParameters.appletOnLoad = function(api) {
+                initialCompute();
+            };
             ggbApplet.inject('ggb-element');
-            
-            initialCompute();
         });
 
-        // Cálculo automático de las columnas cruzadas por fila
         function autoComputeRow(inputElement) {
             const row = inputElement.closest('tr');
             const xVal = parseFloat(row.querySelector('.val-x').value);
@@ -470,10 +461,9 @@
                 const xInput = row.querySelector('.val-x');
                 autoComputeRow(xInput);
             });
-            setTimeout(calculateRegression, 1000); 
+            setTimeout(calculateRegression, 500); 
         }
 
-        // Sumatorias globales de las columnas
         function updateColumnSums() {
             const rows = document.querySelectorAll('#table-body tr');
             let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
@@ -538,7 +528,6 @@
             }
         }
 
-        // Resolución del algoritmo por el Método de Mínimos Cuadrados Ordinarios
         function calculateRegression() {
             const errorDiv = document.getElementById('error-message');
             const data = updateColumnSums();
@@ -566,7 +555,6 @@
             const m = numeratorM / denominatorM;
             const b = meanY - (m * meanX);
 
-            // Inyección de textos limpios libres de errores de encoding o caracteres rotos
             document.getElementById('mean-x').innerHTML = meanX.toFixed(4);
             document.getElementById('mean-y').innerHTML = meanY.toFixed(4);
             document.getElementById('val-m').innerHTML = m.toFixed(4);
@@ -576,7 +564,6 @@
             const equationStr = `y = ${m.toFixed(4)}x ${sign}${Math.abs(b).toFixed(4)}`;
             document.getElementById('equation-text').innerHTML = equationStr;
 
-            // Integración de comandos dinámicos a GeoGebra
             if (window.ggbApplet && typeof window.ggbApplet.evalCommand === 'function') {
                 const app = window.ggbApplet;
                 app.setRepaintingActive(false); 
@@ -584,13 +571,14 @@
 
                 const rows = document.querySelectorAll('#table-body tr');
                 let minX = Infinity, maxX = -Infinity;
+                let minY = Infinity, maxY = -Infinity;
 
                 rows.forEach((row, index) => {
                     const x = parseFloat(row.querySelector('.val-x').value);
                     const y = parseFloat(row.querySelector('.val-y').value);
 
                     if (!isNaN(x) && !isNaN(y)) {
-                        const ptName = `P_{${index + 1}}`;
+                        const ptName = `P_${index + 1}`; 
                         app.evalCommand(`${ptName} = (${x}, ${y})`);
                         app.setLabelVisible(ptName, true);
                         app.setColor(ptName, 76, 175, 80); 
@@ -598,19 +586,22 @@
 
                         if(x < minX) minX = x;
                         if(x > maxX) maxX = x;
+                        if(y < minY) minY = y;
+                        if(y > maxY) maxY = y;
                     }
                 });
 
-                // Trazado de la recta en el plano gigante
                 app.evalCommand(`f(x) = ${m} * x + ${b}`);
                 app.setColor('f', 27, 94, 32); 
                 app.setThickness('f', 4);
 
-                // Autoajuste inteligente del encuadre visual (viewport)
                 if (minX !== Infinity && maxX !== -Infinity) {
                     const spanX = (maxX - minX) === 0 ? 4 : (maxX - minX);
-                    const padding = spanX * 0.5;
-                    app.setCoordSystem(minX - padding, maxX + padding, meanY - (padding * 1.5), meanY + (padding * 1.5));
+                    const spanY = (maxY - minY) === 0 ? 4 : (maxY - minY);
+                    const padX = spanX * 0.3;
+                    const padY = spanY * 0.3;
+                    
+                    app.setCoordSystem(minX - padX, maxX + padX, minY - padY, maxY + padY);
                 }
                 
                 app.setRepaintingActive(true); 
